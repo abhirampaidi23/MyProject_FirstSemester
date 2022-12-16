@@ -1,0 +1,57 @@
+import argparse 
+import random
+if __name__ == '__main__' : 
+ parser = argparse.ArgumentParser(
+                    prog = 'myLCS_DP',
+                    description = 'Returns the length of the longest common subsequence of two DNA sequences. ') 
+ parser.add_argument('--S1', help='Enter the first DNA sequence after typing "--S1" , " '' " if you wish to enter empty string/no input. Please give a space after your input.')
+ parser.add_argument('--S2', help='Enter the second DNA sequence after typing "--S2", " '' " if you wish to enter empty string/no input. Please give a space after your input.')
+ parser.add_argument('--n', type= int, help='After typing "--n", enter value of n to create two random DNA sequences of length n,enter 0 if you do not wish to enter value of n. Please give a space after your input.') 
+ args= parser.parse_args()
+s1= args.S1
+s2= args.S2
+n1= args.n 
+def LCS_RE(x1,x2,l1,l2):
+  if(l1==0 or l2==0):
+    return 0
+  elif(x1[l1-1]==x2[l2-1]):
+    return 1+ LCS_RE(x1,x2,l1-1,l2-1)
+  else:
+    return max(LCS_RE(x1,x2,l1-1,l2),LCS_RE(x1,x2,l1,l2-1))
+  
+  print("Length of longest common subsequence is: "+ LCS_RE(x1,x2,l1,l2))
+
+if(len(s1)!=0 and len(s2)!=0):
+  print("Given sequence 1: "+ s1)
+  print("Given sequence 2: "+ s2)
+  print("The longest common subsequence is: "+ str(LCS_RE(s1,s2,len(s1),len(s2))))
+elif(len(s1)==0 and len(s2)==0 and n1>0):
+  DNA=['A','C','G','T']
+  random_seq1=[]
+  random_seq2=[]
+  rseq1=''
+  rseq2=''
+  for i in range(n1):
+    random_seq1.append(random.choice(DNA))
+  rseq1= ''.join(random_seq1)
+  for i in range(n1):
+    random_seq2.append(random.choice(DNA))
+  rseq2=''.join(random_seq2)
+  print("Randomly generated sequence 1 of length "+ str(n1)+ " is: "+ rseq1)
+  print("Randomly generated sequence 2 of length "+ str(n1)+ " is: "+ rseq2)
+  print("Length of longest common subsequence is: "+ str(LCS_RE(rseq1,rseq2,len(rseq1),len(rseq2))))
+elif(len(s1)==0 and len(s2)==0 and n1==0) :
+  DNA=['A','C','G','T']
+  r_seq1=[]
+  r_seq2=[]
+  randomseq1=''
+  randomseq2=''
+  for i in range(12):
+    r_seq1.append(random.choice(DNA))
+  randomseq1= ''.join(r_seq1)
+  for i in range(12):
+    r_seq2.append(random.choice(DNA))
+  randomseq2=''.join(r_seq2)
+  print("Randomly generated sequence 1 of length "+ str(12)+ " is: "+ randomseq1)
+  print("Randomly generated sequence 2 of length "+ str(12)+ " is: "+ randomseq2)
+  print("Length of longest common subsequence is: "+ str(LCS_RE(randomseq1,randomseq2,12,12)))
