@@ -1,5 +1,6 @@
 # MyProject_FirstSemester
 ##myLCS_RE.py
+
 ---> Using Recursion method, this program finds and returns the length of the longest common subsequence of two DNA sequences inputted by the user,
      OR two random DNA sequences of length 'n' given by the user.
 
